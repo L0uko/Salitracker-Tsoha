@@ -6,6 +6,6 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
-#@app.route("/new1")
-#def index():
-#    return "Heipparallaa!. Tämä on testi. "
+@app.route("/form")
+def form():
+    return render_template("form.html")
