@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import redirect, render_template, request, session
 from os import getenv
+from flask_sqlalchemy import SQLAlchemy
 #How to make new image and run server:
 #docker image build . -t sovellus-server && docker run -it --rm -p 5000:5000 sovellus-server
 app = Flask(__name__)
