@@ -5,6 +5,10 @@ from os import getenv
 #docker image build . -t sovellus-server && docker run -it --rm -p 5000:5000 sovellus-server
 app = Flask(__name__)
 app.secret_key = getenv("SECRET_KEY")
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///user"
+db = SQLAlchemy(app)
+
+
 
 @app.route("/")
 def index():
