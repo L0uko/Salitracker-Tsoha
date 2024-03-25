@@ -1,8 +1,12 @@
 from flask import Flask
-from flask import render_template, request
+from flask import redirect, render_template, request, session
+from os import getenv
 #How to make new image and run server:
 #docker image build . -t sovellus-server && docker run -it --rm -p 5000:5000 sovellus-server
 app = Flask(__name__)
+app.secret_key = getenv("SECRET_KEY")
+
+
 
 @app.route("/")
 def index():
