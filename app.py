@@ -6,11 +6,14 @@ from os import getenv
 app = Flask(__name__)
 app.secret_key = getenv("SECRET_KEY")
 
-
-
 @app.route("/")
 def index():
     return render_template("index.html")
+
+@app.route("/loginpage")
+def loginpage():
+    return render_template("loginpage.html")
+
 
 @app.route("/login",methods=["POST"])
 def login():
@@ -33,3 +36,6 @@ def form():
 @app.route("/result", methods=["POST"])
 def result():
     return render_template("result.html", name=request.form["name"])
+
+if __name__ == "__main__":
+    app.run(debug=True)
