@@ -1,7 +1,15 @@
-<form action="/result" method="POST">
-    Anna nimesi:
-    <input type="text" name="name">
+<form action="/addexersise" method="POST">
+    In this page you can log your exersises and the amount of sets you have made.
     <br>
-    <input type="submit" value="Lähetä">
-    </form>
     
+    <select name="Exersise">
+    <option value="Benchpress" selected>Bench Press 
+    <option value="Squat"> Squat
+    <option value="Deadlift"> Deadlift
+    </select>
+    <br>
+    Sets:
+    <input type="integer" name="Sets">
+    
+    <input type="submit" value="Lähetä">
+    </form> 

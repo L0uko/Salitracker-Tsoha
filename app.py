@@ -33,9 +33,14 @@ def logout():
 def form():
     return render_template("form.html")
 
-@app.route("/result", methods=["POST"])
-def result():
-    return render_template("result.html", name=request.form["name"])
+@app.route("/addexersise",methods=["POST"])
+def addexersise():
+    Exersise = request.form["Exersise"]
+    Sets = request.form["Sets"]
+    sql = "INSERT INTO visits (exersise, Sets) VALUES (:Exersise, :Sets) RETURNING id;"
+    result = db.session.execute(sql, {"Exersise":Exersise, "Sets" :Sets})
+    #poll_id = result.fetchone()[0]
+    return redirect("/")
 
 if __name__ == "__main__":
     app.run(debug=True)

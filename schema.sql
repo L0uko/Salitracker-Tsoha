@@ -1,0 +1,1 @@
+Create TABLE visits (id SERIAL PRIMARY KEY, exersise TEXT, sets INTEGER);
