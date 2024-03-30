@@ -2,6 +2,7 @@ from flask import Flask
 from flask import redirect, render_template, request, session
 from os import getenv
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import text
 #How to make new image and run server:
 #docker image build . -t sovellus-server && docker run -it --rm -p 5000:5000 sovellus-server
 app = Flask(__name__)
@@ -37,7 +38,7 @@ def form():
 def addexersise():
     Exersise = request.form["Exersise"]
     Sets = request.form["Sets"]
-    sql = "INSERT INTO visits (exersise, Sets) VALUES (:Exersise, :Sets) RETURNING id;"
+    sql = text('INSERT INTO visits (Exersise, Sets) VALUES (:Exersise, :Sets) RETURNING id;')
     result = db.session.execute(sql, {"Exersise":Exersise, "Sets" :Sets})
     #poll_id = result.fetchone()[0]
     return redirect("/")
