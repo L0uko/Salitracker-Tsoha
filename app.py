@@ -7,7 +7,7 @@ from sqlalchemy import text
 #docker image build . -t sovellus-server && docker run -it --rm -p 5000:5000 sovellus-server
 app = Flask(__name__)
 app.secret_key = getenv("SECRET_KEY")
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///user"
+app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 db = SQLAlchemy(app)
 
 
