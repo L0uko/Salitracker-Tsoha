@@ -3,15 +3,21 @@ from flask import redirect, render_template, request, session
 from os import getenv
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
+
 #How to make new image and run server:
 #docker image build . -t sovellus-server && docker run -it --rm -p 5000:5000 sovellus-server
+
+#Run these 2 commands in different terminals in this order to start the database
+#docker run --name inventory-dev-postgres -e POSTGRES_USER=db-username -e POSTGRES_PASSWORD=db-password -e POSTGRES_DB=db-name  -p 5432:5432
+#docker exec -i inventory-dev-postgres psql -U db-user db-name < schema.sql
+
 app = Flask(__name__)
 app.secret_key = getenv("SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 db = SQLAlchemy(app)
 
 
-
+ 
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -40,7 +46,8 @@ def addexersise():
     Sets = request.form["Sets"]
     sql = text('INSERT INTO visits (Exersise, Sets) VALUES (:Exersise, :Sets) RETURNING id;')
     result = db.session.execute(sql, {"Exersise":Exersise, "Sets" :Sets})
-    #poll_id = result.fetchone()[0]
+    db.session.commit()
+    poll_id = result.fetchone()[0]
     return redirect("/")
 
 if __name__ == "__main__":
