@@ -1,24 +1,29 @@
-Create TABLE visits (
-id SERIAL PRIMARY KEY,
-exersise_id REFERENCES exersise(id),
-time CURRENT_TIME
-);
-CREATE TABLE excersise (
-id SERIAL PRIMARY KEY, 
-excersename_id REFERENCES excersisename(id), 
-sets INTEGER, 
-weight INTEGER
-);  
-CREATE TABLE excersisename (
-id SERIAL PRIMARY KEY, 
-name TEXT
-);
-Create TABLE users (
-id SERIAL PRIMARY KEY, 
-user_id REFERENCES user(id
-);
-CREATE TABLE user (
+CREATE TABLE account (
 id SERIAL PRIMARY KEY, 
 name TEXT, 
 password TEXT
+);
+
+CREATE TABLE exercisename (
+id SERIAL PRIMARY KEY, 
+name TEXT
+);
+
+CREATE TABLE exercise (
+id SERIAL PRIMARY KEY, 
+sets INTEGER, 
+weight INTEGER,
+account_id INTEGER REFERENCES account(id),
+excersename_id INTEGER REFERENCES exercisename(id) 
+);  
+Create TABLE visits (
+id SERIAL PRIMARY KEY,
+time INTEGER ,
+exercise_id INTEGER REFERENCES exercise(id) 
+);
+
+
+Create TABLE accounts (
+id SERIAL PRIMARY KEY, 
+account_id INTEGER REFERENCES account(id)
 );

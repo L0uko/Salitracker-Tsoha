@@ -9,7 +9,7 @@ from sqlalchemy import text
 
 #Run these 2 commands in different terminals in this order to start the database
 #docker run --name inventory-dev-postgres -e POSTGRES_USER=db-username -e POSTGRES_PASSWORD=db-password -e POSTGRES_DB=db-name  -p 5432:5432
-#docker exec -i inventory-dev-postgres psql -U db-user db-name < schema.sql
+#docker exec -i inventory-dev-postgres psql -U db-username db-name < schema.sql
 
 app = Flask(__name__)
 app.secret_key = getenv("SECRET_KEY")
@@ -40,12 +40,15 @@ def logout():
 def form():
     return render_template("form.html")
 
-@app.route("/addexersise",methods=["POST"])
-def addexersise():
-    Exersise = request.form["Exersise"]
-    Sets = request.form["Sets"]
-    sql = text('INSERT INTO visits (Exersise, Sets) VALUES (:Exersise, :Sets) RETURNING id;')
-    result = db.session.execute(sql, {"Exersise":Exersise, "Sets" :Sets})
+@app.route("/addexercise",methods=["POST"])
+def addexercise():
+    exercisename = request.form["exercisename"]
+    Sets   = request.form["Sets"]
+    weight = request.form["Weight"]
+    Time   = request.form["Time"]
+    sql    = text('INSERT INTO ')
+    sql = text('INSERT INTO visits (exercise, Sets) VALUES (:exercise, :Sets) RETURNING id;')
+    result = db.session.execute(sql, {"exercise":exercisename, "Sets" :Sets})
     db.session.commit()
     poll_id = result.fetchone()[0]
     return redirect("/")
