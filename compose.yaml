@@ -13,6 +13,10 @@ services:
       context: .
     ports:
       - 5000:5000
+#Run these 2 commands in different terminals in this order
+#docker run --name inventory-dev-postgres -e POSTGRES_USER=db-user -e POSTGRES_PASSWORD=db-password -e POSTGRES_DB=db-name  -p 5432:5432
+#docker exec -i inventory-dev-postgres psql -U db-user db-name < schema.sql
+
 
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
