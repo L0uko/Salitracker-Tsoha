@@ -43,12 +43,14 @@ def form():
 @app.route("/addexercise",methods=["POST"])
 def addexercise():
     exercisename = request.form["exercisename"]
-    Sets   = request.form["Sets"]
-    weight = request.form["Weight"]
-    Time   = request.form["Time"]
-    sql    = text('INSERT INTO ')
-    sql = text('INSERT INTO visits (exercise, Sets) VALUES (:exercise, :Sets) RETURNING id;')
-    result = db.session.execute(sql, {"exercise":exercisename, "Sets" :Sets})
+    sets   = request.form["sets"]
+    weight = request.form["weight"]
+    time   = request.form["time"]
+    #Account= request.form["Account"]
+    sql    = text('INSERT INTO exercise (sets, weight, exercisename) VALUES (:sets, :weight, :exercisename) RETURNING id;')
+    result = db.session.execute(sql, {"sets":sets, "weight":weight, "exercisename":exercisename})
+    #sql = text('INSERT INTO visits (exercise, Sets) VALUES (:exercise, :Sets) RETURNING id;')
+    #result = db.session.execute(sql, {"exercise":exercisename, "Sets" :Sets})
     db.session.commit()
     poll_id = result.fetchone()[0]
     return redirect("/")
