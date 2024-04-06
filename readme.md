@@ -1,5 +1,5 @@
-README
-##Salitracker 
+
+#Salitracker 
 The function of this database is to track the users gym visits and show the progress that the user has made.
 
 The final version will have  the following features:
