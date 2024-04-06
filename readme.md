@@ -1,7 +1,8 @@
 README
+##Salitracker 
 The function of this database is to track the users gym visits and show the progress that the user has made.
 
-It will have atleast the following features:
+The final version will have  the following features:
   Logging in
   input the made exercises
   the weight of the exercises
@@ -9,7 +10,8 @@ It will have atleast the following features:
   graph of previous exercises
   ability to make custom exercises
   total repetitions per workout
-  
+
+[Link to the databases docker image](https://hub.docker.com/repository/docker/l0uko/salitracker-db/general)
 Run these 2 commands in different terminals in this order
 docker run --name inventory-dev-postgres -e POSTGRES_USER=db-username -e POSTGRES_PASSWORD=db-password -e POSTGRES_DB=db-name --rm -p 5432:5432 postgres
 
