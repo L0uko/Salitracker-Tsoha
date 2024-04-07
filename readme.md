@@ -5,24 +5,28 @@ The function of this database is to track the users gym visits and show the prog
 # Features
 The final version will have  the following features:
   - Logging in
-  - input the made exercises
-  - the weight of the exercises
-  - the date
-  - graph of previous exercises
-  - ability to make custom exercises
-  - total repetitions per workout
+  - Input the made exercises
+  - The weight of the exercises
+  - The date
+  - Graph of previous exercises
+  - Ability to make custom exercises
+  - Total repetitions per workout
 # Working features
 - Logging in
-- input the made exercises
-	- visual confirmation is still todo
- - the weight of the exercises
- - the date
+	- Visual confirmation TODO
+- Input the made exercises
+	- Visual confirmation is still TODO
+ - The weight of the exercises
+ - Amount of sets
+ - The date
+ 	- You can set the date but it doesnt go to the table (TODO)
 
 # How to run and debug
-Below is a brief tutorial on how to get the database and webpage running on your own (linux) computer:
+Below is a brief tutorial on how to get the database and webpage running on your own (linux) computer: (If you are on Windows, you can run these commands through Git Bash etc.)
 
 Firstly you need to have [Docker](https://www.docker.com/) installed on your machine.
-[Link to the database docker image](https://hub.docker.com/repository/docker/l0uko/salitracker-db/general). The Docker image is right now useless. You dont need need the image to run the database (if you do it doesnt have a name and creates problems.
+[Link to the database docker image](https://hub.docker.com/repository/docker/l0uko/salitracker-db/general). The Docker image is right now useless. You dont need need the image to run the database (if you do it doesnt have a name and creates problems (TODO).
+
 So, 
 Run these 2 commands in different terminals in this order
 This command makes the database exist inside a container and it gives it a name, user and a password.
@@ -43,6 +47,9 @@ docker image build . -t sovellus-server && docker run -it --rm -p 5000:5000 sove
 How to get in to the db using docker exec: `docker exec -it inventory-dev-postgres bash`
 
 In bash:    `psql -d db-name -U db-username`
+
+> (The amount of tables has diminished because in the beginning I made
+> redundant tables and realised that only now.)
 
 
 
