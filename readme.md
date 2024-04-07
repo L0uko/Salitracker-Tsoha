@@ -37,6 +37,7 @@ Now that the db is running to start the webpage you just need to run the normal 
 
 ~~And run this to start the server:
 docker image build . -t sovellus-server && docker run -it --rm -p 5000:5000 sovellus-server~~
+
  If you want to see the actual db the normal `psql` wont work because it's inside a container. You need to run 2 commands. First you go inside the container and then connect to the db. 
 
 How to get in to the db using docker exec: `docker exec -it inventory-dev-postgres bash`
