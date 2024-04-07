@@ -49,10 +49,13 @@ def signin():
     username = request.form["username"]
     password = request.form["password"]
     hash_value = generate_password_hash(password)
-    sql = text("INSERT INTO users (username, password) VALUES (:username, :password)")
-    db.session.execute(sql, {"username":username, "password":hash_value})
-    db.session.commit()
-    return redirect("/")
+    try:
+        sql = text("INSERT INTO users (username, password) VALUES (:username, :password)")
+        db.session.execute(sql, {"username":username, "password":hash_value})
+        db.session.commit()
+        return redirect("/")
+    except:
+        return redirect("/")
 
 @app.route("/logout")
 def logout():
