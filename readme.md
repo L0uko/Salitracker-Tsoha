@@ -35,7 +35,15 @@ This command makes the database exist inside a container and it gives it a name,
 
    This second command puts the necessary tables to the database from schema.sql.
 
-    docker exec -i inventory-dev-postgres psql -U db-username db-name < schema.sql
+     docker exec -i inventory-dev-postgres psql -U db-username db-name < schema.sql
+
+Now you must create .env file for the enviromental variables.
+Copy this into the file:
+
+`DATABASE_URL=<local-postgres-address>`  
+`SECRET_KEY=<your-secret-key>`  
+`FLY_DEPLOYMENT=False`
+
 
 Now that the db is running to start the webpage you just need to run the normal `flask run` I dont know about others but I didn't need to run the `source venv/bin/activate`.
 
