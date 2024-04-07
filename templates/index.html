@@ -1,11 +1,7 @@
 <title>Etusivu</title>
 <h1>Etusivu</h1>
-Tervetuloa SaliTrackeriin. Täällä voit kirjata salilla tehdyt liikkeet ja seurata edistystäsi.
+Welcome to Salitracker. Here you can track your gymvisits and in the future even more.
 <br>
-
- <!--...<form action="/loginpage"-->
- <!--...    <input type = "submit" value="Kirjaudu sisään"-->
- <!--...</form-->
 <form action="/form">
 <input type = "submit" value="Lisää salikäynti">
 </form>
@@ -14,10 +10,19 @@ Tervetuloa SaliTrackeriin. Täällä voit kirjata salilla tehdyt liikkeet ja seu
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
 <form action="/login" method="POST">
-<p>Tunnus:<br>
+<p>Username:<br>
 <input type="text" name="username"></p>
-<p>Salasana:<br>
+<p>Password:<br>
 <input type="password" name="password"></p>
-<input type="submit" value="Kirjaudu">
+<input type="submit" value="Log in">
 </form>
+<form action="/signin" method="POST">
+    <p>Username:<br>
+    <input type="text" name="username"></p>
+    <p>Password:<br>
+    <input type="password" name="password"></p>
+    <input type="submit" value="Sign in">
+    </form>
 {% endif %}
+
+

@@ -3,6 +3,7 @@ from flask import redirect, render_template, request, session
 from os import getenv
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
+from werkzeug.security import check_password_hash, generate_password_hash
 
 #How to make new image and run server:
 #docker image build . -t sovellus-server && docker run -it --rm -p 5000:5000 sovellus-server
@@ -26,8 +27,31 @@ def index():
 def login():
     username = request.form["username"]
     password = request.form["password"]
+    
+    sql = text("SELECT id, password FROM users WHERE username=:username")
+    result = db.session.execute(sql, {"username":username})
+    user = result.fetchone()    
+    if not user:
+        return redirect("/")
+    else:
+        hash_value = user.password
+        if check_password_hash(hash_value, password):
+            session["username"] = username
+            return redirect("/")
+        else:
+            return redirect("/")
+
     # TODO: check username and password
-    session["username"] = username
+    return redirect("/")
+
+@app.route("/signin",methods=["POST"])
+def signin():
+    username = request.form["username"]
+    password = request.form["password"]
+    hash_value = generate_password_hash(password)
+    sql = text("INSERT INTO users (username, password) VALUES (:username, :password)")
+    db.session.execute(sql, {"username":username, "password":hash_value})
+    db.session.commit()
     return redirect("/")
 
 @app.route("/logout")
@@ -46,13 +70,13 @@ def addexercise():
     sets   = request.form["sets"]
     weight = request.form["weight"]
     time   = request.form["time"]
-    #Account= request.form["Account"]
-    sql    = text('INSERT INTO exercise (sets, weight, exercisename) VALUES (:sets, :weight, :exercisename) RETURNING id;')
+    sql    = text('''INSERT INTO exercise (sets, weight, exercisename) 
+                  VALUES (:sets, :weight, :exercisename) RETURNING id;''')
     result = db.session.execute(sql, {"sets":sets, "weight":weight, "exercisename":exercisename})
     #sql = text('INSERT INTO visits (exercise, Sets) VALUES (:exercise, :Sets) RETURNING id;')
     #result = db.session.execute(sql, {"exercise":exercisename, "Sets" :Sets})
     db.session.commit()
-    poll_id = result.fetchone()[0]
+    visit_id = result.fetchone()[0]
     return redirect("/")
 
 if __name__ == "__main__":
