@@ -40,7 +40,7 @@ This command makes the database exist inside a container and it gives it a name,
 Now you must create .env file for the enviromental variables.
 Copy this into the file:
 
-`DATABASE_URL=<local-postgres-address>`  
+`DATABASE_URL=postgresql://db-username:db-password@localhost/db-name`  
 `SECRET_KEY=<your-secret-key>`  
 `FLY_DEPLOYMENT=False`
 
