@@ -48,6 +48,8 @@ def login():
 def signin():
     username = request.form["username"]
     password = request.form["password"]
+    if len(username) < 1:
+        return redirect("/")
     if len(password) < 1:
         return redirect("/")
     hash_value = generate_password_hash(password)
