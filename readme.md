@@ -25,7 +25,7 @@ The final version will have  the following features:
 Below is a brief tutorial on how to get the database and webpage running on your own (linux) computer: (If you are on Windows, you can run these commands through Git Bash etc.)
 
 Firstly you need to have [Docker](https://www.docker.com/) installed on your machine.
-[Link to the database docker image](https://hub.docker.com/repository/docker/l0uko/salitracker-db/general). The Docker image is right now useless. You dont need need the image to run the database (if you do it doesnt have a name and creates problems (TODO).
+> [Link to the database docker image](https://hub.docker.com/repository/docker/l0uko/salitracker-db/general). The Docker image is right now useless. You dont need need the image to run the database (if you do it doesnt have a name and creates problems (TODO).
 
 So, 
 Run these 2 commands in different terminals in this order
