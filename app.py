@@ -21,6 +21,7 @@ db = SQLAlchemy(app)
  
 @app.route("/")
 def index():
+    
     return render_template("index.html")
 
 @app.route("/login",methods=["POST"])
@@ -30,18 +31,17 @@ def login():
     
     sql = text("SELECT id, password FROM users WHERE username=:username")
     result = db.session.execute(sql, {"username":username})
-    user = result.fetchone()    
+    user = result.fetchone()
     if not user:
-        return redirect("/")
+        return render_template("index.html", error =True)
     else:
         hash_value = user.password
         if check_password_hash(hash_value, password):
             session["username"] = username
-            return redirect("/")
+            return render_template("index.html")
         else:
-            return redirect("/")
+            return render_template("index.html", error =True)
 
-    # TODO: check username and password
     return redirect("/")
 
 @app.route("/signin",methods=["POST"])
