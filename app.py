@@ -22,7 +22,7 @@ db = SQLAlchemy(app)
 @app.route("/")
 def index():
     
-    return render_template("index.html")
+    return render_template("index.html",error= False)
 
 @app.route("/login",methods=["POST"])
 def login():
@@ -38,7 +38,7 @@ def login():
         hash_value = user.password
         if check_password_hash(hash_value, password):
             session["username"] = username
-            return render_template("index.html")
+            return render_template("index.html",error=False)
         else:
             return render_template("index.html", error =True)
 
@@ -77,9 +77,16 @@ def addexercise():
     sets   = request.form["sets"]
     weight = request.form["weight"]
     time   = request.form["time"]
-    sql    = text('''INSERT INTO exercise (sets, weight, exercisename) 
-                  VALUES (:sets, :weight, :exercisename) RETURNING id;''')
-    result = db.session.execute(sql, {"sets":sets, "weight":weight, "exercisename":exercisename})
+    username= session["username"]
+    print(username)
+    sql    = text('''SELECT id FROM users WHERE username = :username''')
+    user_id= db.session.execute(sql, {"username":username}).fetchone()
+    user_id= user_id[0]
+    sql    = text('''INSERT INTO exercise (sets, weight, user_id, exercisename)
+                  VALUES (:sets, :weight, :user_id, :exercisename) RETURNING id''')
+    result = db.session.execute(sql, {"sets":sets, "weight":weight,"user_id":user_id, "exercisename":exercisename })
+    sql    =text('''INSERT INTO visits (time) VALUES (:time) RETURNING id''')
+    result = db.session.execute(sql, {"time":time, "exercise_id":result})
     #sql = text('INSERT INTO visits (exercise, Sets) VALUES (:exercise, :Sets) RETURNING id;')
     #result = db.session.execute(sql, {"exercise":exercisename, "Sets" :Sets})
     db.session.commit()

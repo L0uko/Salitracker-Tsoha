@@ -18,7 +18,7 @@ exercisename TEXT
 );  
 Create TABLE visits (
 id SERIAL PRIMARY KEY,
-time INTEGER ,
+time TEXT ,
 exercise_id INTEGER REFERENCES exercise(id) 
 );
 
