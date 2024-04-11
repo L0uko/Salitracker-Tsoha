@@ -12,6 +12,12 @@ from werkzeug.security import check_password_hash, generate_password_hash
 #docker run --name inventory-dev-postgres -e POSTGRES_USER=db-username -e POSTGRES_PASSWORD=db-password -e POSTGRES_DB=db-name  -p 5432:5432
 #docker exec -i inventory-dev-postgres psql -U db-username db-name < schema.sql
 
+'''TODOLIST:
+TODO confirmation for adding exercise 
+
+
+
+'''
 app = Flask(__name__)
 app.secret_key = getenv("SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
@@ -21,7 +27,6 @@ db = SQLAlchemy(app)
  
 @app.route("/")
 def index():
-    
     return render_template("index.html",error= False)
 
 @app.route("/login",methods=["POST"])
@@ -49,17 +54,17 @@ def signin():
     username = request.form["username"]
     password = request.form["password"]
     if len(username) < 1:
-        return redirect("/")
+        return render_template("index.html",error=True)
     if len(password) < 1:
-        return redirect("/")
+        return render_template("index.html",error=True)
     hash_value = generate_password_hash(password)
     try:
         sql = text("INSERT INTO users (username, password) VALUES (:username, :password)")
         db.session.execute(sql, {"username":username, "password":hash_value})
         db.session.commit()
-        return redirect("/")
+        return render_template("index.html",signup =True)
     except:
-        return redirect("/")
+        return render_template("index.html",error=True)
 
 @app.route("/logout")
 def logout():
@@ -69,7 +74,12 @@ def logout():
 
 @app.route("/form")
 def form():
-    return render_template("form.html")
+    try:
+        if len(session["username"]) < 0:
+            return render_template("form.html")
+        return render_template("form.html")
+    except:
+        return render_template("index.html", error=True)
 
 @app.route("/addexercise",methods=["POST"])
 def addexercise():
@@ -91,7 +101,7 @@ def addexercise():
     #result = db.session.execute(sql, {"exercise":exercisename, "Sets" :Sets})
     db.session.commit()
     visit_id = result.fetchone()[0]
-    return redirect("/")
+    return render_template("index.html",exerciseadd = True)
 
 if __name__ == "__main__":
     app.run(debug=True)

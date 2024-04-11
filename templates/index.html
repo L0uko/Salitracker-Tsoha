@@ -24,9 +24,17 @@ Welcome to Salitracker. Here you can track your gymvisits and in the future even
     <input type="submit" value="Sign up">
     </form>
 {% endif %}
-
+<br>
 {%if error %}
 Something went wrong 
 {% endif %}
-
+{%if login %}
+Login successful 
+{% endif %}
+{%if signup %}
+Sign up successful 
+{% endif %}
+{%if exerciseadd %}
+Exercise added 
+{% endif %}
 
