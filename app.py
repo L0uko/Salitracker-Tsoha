@@ -14,8 +14,11 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 '''TODOLIST:
 TODO confirmation for adding exercise 
-
-
+TODO more tables (dont know how)
+TODO See profile
+TODO profile sort by time exercises
+TODO Running
+TODO route where can choose between running and gym
 
 '''
 app = Flask(__name__)
