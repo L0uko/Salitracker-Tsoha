@@ -19,7 +19,6 @@ The final version will have  the following features:
  - The weight of the exercises
  - Amount of sets
  - The date
- 	- You can set the date but it doesnt go to the table (TODO)
 
 # How to run and debug
 Below is a brief tutorial on how to get the database and webpage running on your own (linux) computer: (If you are on Windows, you can run these commands through Git Bash etc.)
