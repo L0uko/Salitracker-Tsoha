@@ -14,12 +14,11 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 '''TODOLIST:
 TODO more tables (dont know how)
-TODO See profile
 TODO profile sort by time exercises
 TODO Running
 TODO route where can choose between running and gym 
 (maybe 3rd option? sport?)
-TODO
+TODO Profile see all exercises
 '''
 app = Flask(__name__)
 app.secret_key = getenv("SECRET_KEY")
@@ -106,16 +105,10 @@ def addexercise():
 
 @app.route("/profile/<int:id>")
 def profile(id):
-    #id = find_user_id(session["username"])
+    sql = text("SELECT exercise.id, exercise.sets, exercise.user_id FROM exercise, users WHERE user_id = users.id")
+    exercises= db.session.execute(sql,{"user_id":id}).fetchall()
+    print(exercises)
     return render_template("profile.html")
-    #allow=False
-    #if is_admin():
-    #    allow = True
-    #elif is_user() and user_id() == id:
-    #    allow = True
-    #
-    #if not allow:
-    #    return render_template("index.html", error="Ei oikeutta nähdä sivua")
     
 def find_user_id(username):
     try:
