@@ -7,7 +7,11 @@ Welcome to Salitracker. Here you can track your gymvisits and in the future even
 </form>
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
-<a href="/logout">Kirjaudu ulos</a>
+<a href="/logout">Log out</a>
+<br>
+<a href="/profile/{{session.user_id}}">Profile</a>
+<br><br>
+
 {% else %}
 <form action="/login" method="POST">
 <p>Username:<br>
@@ -23,10 +27,11 @@ Welcome to Salitracker. Here you can track your gymvisits and in the future even
     <input type="password" name="password"></p>
     <input type="submit" value="Sign up">
     </form>
+
 {% endif %}
 <br>
 {%if error %}
-Something went wrong 
+{{error}} 
 {% endif %}
 {%if login %}
 Login successful 

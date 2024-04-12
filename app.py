@@ -13,13 +13,13 @@ from werkzeug.security import check_password_hash, generate_password_hash
 #docker exec -i inventory-dev-postgres psql -U db-username db-name < schema.sql
 
 '''TODOLIST:
-TODO confirmation for adding exercise 
 TODO more tables (dont know how)
 TODO See profile
 TODO profile sort by time exercises
 TODO Running
-TODO route where can choose between running and gym
-
+TODO route where can choose between running and gym 
+(maybe 3rd option? sport?)
+TODO
 '''
 app = Flask(__name__)
 app.secret_key = getenv("SECRET_KEY")
@@ -30,7 +30,7 @@ db = SQLAlchemy(app)
  
 @app.route("/")
 def index():
-    return render_template("index.html",error= False)
+    return render_template("index.html",error = False)
 
 @app.route("/login",methods=["POST"])
 def login():
@@ -41,14 +41,15 @@ def login():
     result = db.session.execute(sql, {"username":username})
     user = result.fetchone()
     if not user:
-        return render_template("index.html", error =True)
+        return render_template("index.html", error = "Incorrect username")
     else:
         hash_value = user.password
         if check_password_hash(hash_value, password):
             session["username"] = username
+            session["user_id"]  = find_user_id(username)
             return render_template("index.html",error=False)
         else:
-            return render_template("index.html", error =True)
+            return render_template("index.html", error ="Incorrect  password")
 
     return redirect("/")
 
@@ -57,9 +58,9 @@ def signin():
     username = request.form["username"]
     password = request.form["password"]
     if len(username) < 1:
-        return render_template("index.html",error=True)
+        return render_template("index.html",error="Username was too short")
     if len(password) < 1:
-        return render_template("index.html",error=True)
+        return render_template("index.html",error="Password was too short")
     hash_value = generate_password_hash(password)
     try:
         sql = text("INSERT INTO users (username, password) VALUES (:username, :password)")
@@ -67,7 +68,7 @@ def signin():
         db.session.commit()
         return render_template("index.html",signup =True)
     except:
-        return render_template("index.html",error=True)
+        return render_template("index.html",error="Something went wrong")
 
 @app.route("/logout")
 def logout():
@@ -82,7 +83,7 @@ def form():
             return render_template("form.html")
         return render_template("form.html")
     except:
-        return render_template("index.html", error=True)
+        return render_template("index.html", error="You need to login to continue")
 
 @app.route("/addexercise",methods=["POST"])
 def addexercise():
@@ -91,10 +92,7 @@ def addexercise():
     weight = request.form["weight"]
     time   = request.form["time"]
     username= session["username"]
-    print(username)
-    sql    = text('''SELECT id FROM users WHERE username = :username''')
-    user_id= db.session.execute(sql, {"username":username}).fetchone()
-    user_id= user_id[0]
+    user_id= find_user_id(username)
     sql    = text('''INSERT INTO exercise (sets, weight, user_id, exercisename)
                   VALUES (:sets, :weight, :user_id, :exercisename) RETURNING id''')
     result = db.session.execute(sql, {"sets":sets, "weight":weight,"user_id":user_id, "exercisename":exercisename })
@@ -106,5 +104,23 @@ def addexercise():
     visit_id = result.fetchone()[0]
     return render_template("index.html",exerciseadd = True)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.route("/profile/<int:id>")
+def profile(id):
+    #id = find_user_id(session["username"])
+    return render_template("profile.html")
+    #allow=False
+    #if is_admin():
+    #    allow = True
+    #elif is_user() and user_id() == id:
+    #    allow = True
+    #
+    #if not allow:
+    #    return render_template("index.html", error="Ei oikeutta nähdä sivua")
+    
+def find_user_id(username):
+    try:
+        sql    = text('''SELECT id FROM users WHERE username = :username''')
+        user_id= db.session.execute(sql, {"username":username}).fetchone()
+        return user_id[0]
+    except:
+        return
