@@ -22,7 +22,7 @@ exercisename TEXT
 );  
 Create TABLE visits (
 id SERIAL PRIMARY KEY,
-time TEXT ,
+date TEXT ,
 user_id INTEGER REFERENCES users(id),
 exercise_id INTEGER REFERENCES exercise(id) 
 );

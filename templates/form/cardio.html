@@ -1,22 +1,21 @@
 <form action="/addexercise" method="POST">
     <br>
-    In this page you can log your exercises and the amount of sets you have made.
+    In this page you can log your running and biking etc.
     <br><br>
     Exercise:<br>
     <select name="exercisename">
-    <option value="Benchpress" selected>Bench Press 
-    <option value="Squat"> Squat
-    <option value="Deadlift"> Deadlift
-    <option value="Barbellcurl"> Barbell Curl
+    <option value="Running" selected>Running 
+    <option value="Cycling"> Cycling 
+    <option value="Rowing machine"> Rowing Machine 
     </select>
     <br><br>
-    Sets:
+    Distance: (Km)
     <br>
-    <input type="number" min="1" max="99" required name="sets">
+    <input type="number" step="0.1" min="1" max="999" required name="Distance">
     <br><br>
-    Weight:
+    Time: (min)
     <br>
-    <input type="number" min="1" max="500" required name="weight">
+    <input type="number" min="1" max="1000" required name="time">
     <br><br>
     Date:
     <br>
