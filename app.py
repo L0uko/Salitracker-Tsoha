@@ -19,6 +19,7 @@ TODO Running
 TODO route where can choose between running and gym 
 (maybe 3rd option? sport?)
 TODO Profile see all exercises
+TODO Templates?(new tables?)
 '''
 app = Flask(__name__)
 app.secret_key = getenv("SECRET_KEY")
@@ -72,41 +73,53 @@ def signin():
 @app.route("/logout")
 def logout():
     del session["username"]
+    del session["user_id"]
     return redirect("/")
 
 
 @app.route("/form")
 def form():
-    try:
-        if len(session["username"]) < 0:
-            return render_template("form.html")
-        return render_template("form.html")
-    except:
-        return render_template("index.html", error="You need to login to continue")
+    #try:
+    #if len(session["username"]) > 0:
+    #    return render_template("form.html")
+    return render_template("form.html")
+    #except:
+    #    return render_template("index.html", error="You need to login to continue")
 
 @app.route("/addexercise",methods=["POST"])
-def addexercise():
+def addexercise():    
     exercisename = request.form["exercisename"]
     sets   = request.form["sets"]
     weight = request.form["weight"]
     time   = request.form["time"]
     username= session["username"]
     user_id= find_user_id(username)
-    sql    = text('''INSERT INTO exercise (sets, weight, user_id, exercisename)
-                  VALUES (:sets, :weight, :user_id, :exercisename) RETURNING id''')
-    result = db.session.execute(sql, {"sets":sets, "weight":weight,"user_id":user_id, "exercisename":exercisename })
-    sql    =text('''INSERT INTO visits (time) VALUES (:time) RETURNING id''')
-    result = db.session.execute(sql, {"time":time, "exercise_id":result})
+    sql    = text('''INSERT INTO exercise (sets, weight, exercisename)
+                  VALUES (:sets, :weight, :exercisename) RETURNING id''')
+    result = db.session.execute(sql, {"sets":sets, "weight":weight, "exercisename":exercisename }).fetchone()
+    result=result[0]
+    sql    =text('''INSERT INTO visits (time, user_id, exercise_id) VALUES (:time, :user_id, :exercise_id) RETURNING id''')
+    result = db.session.execute(sql, {"time":time, "user_id":user_id, "exercise_id":result}).fetchone()
     #sql = text('INSERT INTO visits (exercise, Sets) VALUES (:exercise, :Sets) RETURNING id;')
     #result = db.session.execute(sql, {"exercise":exercisename, "Sets" :Sets})
+    #session["exercises"] += result
     db.session.commit()
-    visit_id = result.fetchone()[0]
-    return render_template("index.html",exerciseadd = True)
+    visit_id = result[0]
+    #try:
+    if request.form["Continue"] == "True":
+        return render_template("form.html", exercises=exercisename)
+    else:
+        return render_template("index.html", added=True)
+    #except:
+    #    return redirect("/")
+        #return render_template("index.html",exerciseadd = True)
 
 @app.route("/profile/<int:id>")
 def profile(id):
-    sql = text("SELECT exercise.id, exercise.sets, exercise.user_id FROM exercise, users WHERE user_id = users.id")
-    exercises= db.session.execute(sql,{"user_id":id}).fetchall()
+    #first we get the visit id.
+    #sql = text("SELECT v.id, v.time, v.exercise_id")
+    sql = text("SELECT exercise.id, exercise.sets  FROM exercise, users, visits WHERE exercise.id=visits.exercise_id")
+    exercises= db.session.execute(sql,{"exercise.id":id}).fetchall()
     print(exercises)
     return render_template("profile.html")
     

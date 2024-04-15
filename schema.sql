@@ -13,12 +13,12 @@ CREATE TABLE exercise (
 id SERIAL PRIMARY KEY, 
 sets INTEGER, 
 weight INTEGER,
-user_id INTEGER REFERENCES users(id),
 exercisename TEXT 
 );  
 Create TABLE visits (
 id SERIAL PRIMARY KEY,
 time TEXT ,
+user_id INTEGER REFERENCES users(id),
 exercise_id INTEGER REFERENCES exercise(id) 
 );
 
