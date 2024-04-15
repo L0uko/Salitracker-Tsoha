@@ -33,19 +33,9 @@ def login():
 
 @app.route("/signin",methods=["POST"])
 def signin():
-    username = request.form["username"]
-    password = request.form["password"]
-    if len(username) < 1:
-        return render_template("index.html",error="Username was too short")
-    if len(password) < 1:
-        return render_template("index.html",error="Password was too short")
-    hash_value = generate_password_hash(password)
-    try:
-        sql = text("INSERT INTO users (username, password) VALUES (:username, :password)")
-        db.session.execute(sql, {"username":username, "password":hash_value})
-        db.session.commit()
+    if users.register() == 1:
         return render_template("index.html",signup =True)
-    except:
+    else:
         return render_template("index.html",error="Something went wrong")
 
 @app.route("/logout")
