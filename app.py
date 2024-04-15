@@ -8,11 +8,7 @@ from flask import Flask
 
 '''TODOLIST:
 TODO more tables (dont know how)
-TODO profile sort by time exercises
-TODO Running
-TODO route where can choose between running and gym 
 (maybe 3rd option? sport?)
-TODO Profile see all exercises
 TODO Templates?(new tables?)
 '''
 app = Flask(__name__)
