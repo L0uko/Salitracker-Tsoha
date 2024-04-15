@@ -12,25 +12,13 @@ def index():
 
 @app.route("/login",methods=["POST"])
 def login():
-    username = request.form["username"]
-    password = request.form["password"]
-    
-    sql = text("SELECT id, password FROM users WHERE username=:username")
-    result = db.session.execute(sql, {"username":username})
-    user = result.fetchone()
-    if not user:
+    value = users.login()
+    if value == "not_user":
         return render_template("index.html", error = "Incorrect username")
+    if value == True:
+        return render_template("index.html",error=False)
     else:
-        hash_value = user.password
-        if check_password_hash(hash_value, password):
-            session["username"] = username
-            session["user_id"]  = users.find_user_id(username)
-            return render_template("index.html",error=False)
-        else:
-            return render_template("index.html", error ="Incorrect  password")
-
-    return redirect("/")
-
+        return render_template("index.html", error ="Incorrect  password")
 @app.route("/signin",methods=["POST"])
 def signin():
     if users.register() == 1:

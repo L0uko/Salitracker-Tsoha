@@ -19,6 +19,23 @@ def register():
     except:
         return 4
 
+def login():
+    username = request.form["username"]
+    password = request.form["password"]
+    
+    sql = text("SELECT id, password FROM users WHERE username=:username")
+    result = db.session.execute(sql, {"username":username})
+    user = result.fetchone()
+    if not user:
+        return "not_user"
+    else:
+        hash_value = user.password
+        if check_password_hash(hash_value, password):
+            session["username"] = username
+            session["user_id"]  = find_user_id(username)
+            return True
+        else:
+            return False
 def find_user_id(username):
     try:
         sql    = text('''SELECT id FROM users WHERE username = :username''')
@@ -26,3 +43,5 @@ def find_user_id(username):
         return user_id[0]
     except:
         return
+    
+    
