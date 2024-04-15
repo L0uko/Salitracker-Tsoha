@@ -27,12 +27,7 @@ user_id INTEGER REFERENCES users(id),
 exercise_id INTEGER REFERENCES exercise(id) 
 );
 
-
---Create TABLE accounts (
---id SERIAL PRIMARY KEY, 
---account_id INTEGER REFERENCES account(id)
---);
---INSERT INTO exercisename (name) VALUES (benchpress);
---INSERT INTO exercisename (name) VALUES (squat);
---INSERT INTO exercisename (name) VALUES (deadlift);
---INSERT INTO exercisename (name) VALUES (barbellcurl);
+CREATE TABLE quotes (
+    id SERIAL PRIMARY KEY,
+    quotes TEXT,
+)
