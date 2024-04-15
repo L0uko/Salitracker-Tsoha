@@ -79,12 +79,12 @@ def logout():
 
 @app.route("/form")
 def form():
-    #try:
-    #if len(session["username"]) > 0:
-    #    return render_template("form.html")
-    return render_template("form.html")
-    #except:
-    #    return render_template("index.html", error="You need to login to continue")
+    try:
+        if len(session["username"]) > 0:
+            return render_template("form.html")
+        return render_template("form.html")
+    except:
+        return render_template("index.html", error="You need to login to continue")
 
 @app.route("/addexercise",methods=["POST"])
 def addexercise():    
