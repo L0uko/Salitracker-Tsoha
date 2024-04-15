@@ -30,7 +30,9 @@
 
     <input type="submit"  value="submit">
     </form> 
-    
+    {%if exercises%}
     <p>Last added exercise: </p>
     {{exercises}}
-    <a href="/choice">Go back</a>
+    {%endif%}
+    
+    <p><a href="/choice">Go back</a></p>
