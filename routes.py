@@ -73,8 +73,5 @@ def addexercise():
 @app.route("/profile/<int:id>")
 def profile(id):
     #first we get the visit id.
-    #sql = text("SELECT v.id, v.date, v.exercise_id")
-    sql = text("SELECT exercise.id, exercise.sets  FROM exercise, users, visits WHERE exercise.id=visits.exercise_id")
-    exercises= db.session.execute(sql,{"exercise.id":id}).fetchall()
-    print(exercises)
-    return render_template("profile.html")
+    allexercises = users.show_exercises(id)
+    return render_template("profile.html", allexercises=allexercises)

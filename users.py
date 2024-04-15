@@ -18,7 +18,6 @@ def register():
         return 1
     except:
         return 4
-
 def login():
     username = request.form["username"]
     password = request.form["password"]
@@ -43,5 +42,13 @@ def find_user_id(username):
         return user_id[0]
     except:
         return
-    
-    
+def show_exercises(user_id):
+    sql = text("""
+    SELECT e.exercisename, e.sets, e.weight, v.date
+    FROM exercise e, visits v 
+    WHERE v.exercise_id=e.id and v.user_id=:user_id
+    ORDER BY v.date
+    ;""")
+    #add cardio too TODO
+    all_exercises = db.session.execute(sql,{"user_id":user_id}).fetchall()
+    return all_exercises

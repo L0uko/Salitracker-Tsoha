@@ -1,3 +1,7 @@
 Olet kirjautunut nimellä {{session.username}}
 <br><br>
 <a href="/">Go back</a>
+
+{%for ex in allexercises%}
+<p>Name: {{ex.exercisename}} Sets: {{ex.sets}} Weight: (Kg) {{ex.weight}} Total weight lifted: (Kg) {{ex.sets*ex.weight}} Date: {{ex.date}} </p>
+{%endfor%}
