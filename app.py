@@ -100,19 +100,12 @@ def addexercise():
     result=result[0]
     sql    =text('''INSERT INTO visits (time, user_id, exercise_id) VALUES (:time, :user_id, :exercise_id) RETURNING id''')
     result = db.session.execute(sql, {"time":time, "user_id":user_id, "exercise_id":result}).fetchone()
-    #sql = text('INSERT INTO visits (exercise, Sets) VALUES (:exercise, :Sets) RETURNING id;')
-    #result = db.session.execute(sql, {"exercise":exercisename, "Sets" :Sets})
-    #session["exercises"] += result
     db.session.commit()
     visit_id = result[0]
-    #try:
     if request.form["Continue"] == "True":
         return render_template("form.html", exercises=exercisename)
     else:
         return render_template("index.html", added=True)
-    #except:
-    #    return redirect("/")
-        #return render_template("index.html",exerciseadd = True)
 
 @app.route("/profile/<int:id>")
 def profile(id):
