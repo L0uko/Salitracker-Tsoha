@@ -2,12 +2,11 @@ from flask import redirect, render_template, request, session
 from app import app
 from db import db
 import users
-from sqlalchemy import text
-from werkzeug.security import check_password_hash, generate_password_hash
 
 
 @app.route("/")
 def index():
+    session["quote"] = f'"{users.new_quote()}"'
     return render_template("index.html",error = False)
 
 @app.route("/login",methods=["POST"])

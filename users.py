@@ -2,7 +2,7 @@ from db import db
 from flask import redirect, render_template, request, session
 from sqlalchemy import text
 from werkzeug.security import check_password_hash, generate_password_hash
-
+from random import randint
 def register():
     username = request.form["username"]
     password = request.form["password"]
@@ -71,3 +71,12 @@ def add_gym():
         return exercisename
     else:
         return False
+def add_cardio():
+    #TODO
+    pass    
+def new_quote():
+    lenght = db.session.execute(text("SELECT quotes FROM quotes;")).fetchall()
+    lenght = len(lenght)
+    rand = randint(1,lenght)
+    quote= db.session.execute(text("SELECT quotes FROM quotes WHERE id=:rand;"),{"rand":rand}).fetchone()
+    return quote[0]
