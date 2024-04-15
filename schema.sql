@@ -4,10 +4,15 @@ username VARCHAR(50) UNIQUE,
 password TEXT
 );
 
---CREATE TABLE exercisename (
---id SERIAL PRIMARY KEY, 
---name TEXT
---);
+CREATE TABLE cardio (
+id SERIAL PRIMARY KEY, 
+cardioname TEXT,
+lenght INTEGER,
+time TIME 
+);
+
+--CREATE TABLE popuplarity ( "needs work"
+--id SERIAL PRIMARY KEY,
 
 CREATE TABLE exercise (
 id SERIAL PRIMARY KEY, 

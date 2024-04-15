@@ -77,14 +77,18 @@ def logout():
     return redirect("/")
 
 
-@app.route("/form")
-def form():
+@app.route("/form/gym")
+def form_gym():
     try:
         if len(session["username"]) > 0:
-            return render_template("form.html")
-        return render_template("form.html")
+            return render_template("form/gym.html")
+        return render_template("form/gym.html")
     except:
         return render_template("index.html", error="You need to login to continue")
+
+@app.route("/choice")
+def choice():
+    return render_template("choice.html")
 
 @app.route("/addexercise",methods=["POST"])
 def addexercise():    
@@ -103,7 +107,7 @@ def addexercise():
     db.session.commit()
     visit_id = result[0]
     if request.form["Continue"] == "True":
-        return render_template("form.html", exercises=exercisename)
+        return render_template("form/gym.html", exercises=exercisename)
     else:
         return render_template("index.html", added=True)
 
