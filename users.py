@@ -72,7 +72,24 @@ def add_gym():
     else:
         return False
 def add_cardio():
-    #TODO
+    cardioname = request.form["exercisename"]
+    lenght  = request.form["Distance"]
+    times = request.form["time"]
+    date   = request.form["date"]
+    username= session["username"]
+    user_id= find_user_id(username)
+    sql    = text('''INSERT INTO cardio (cardioname, lenght,times)
+                  VALUES (:cardioname, :lenght, :times) RETURNING id''')
+    result = db.session.execute(sql, {"cardioname":cardioname, "lenght":lenght, "times":times }).fetchone()
+    result=result[0]
+    sql    =text('''INSERT INTO visits (date, user_id, cardio_id) VALUES (:date, :user_id, :cardio_id) RETURNING id''')
+    result = db.session.execute(sql, {"date":date, "user_id":user_id, "cardio_id":result}).fetchone()
+    db.session.commit()
+    visit_id = result[0]
+    if request.form["Continue"] == "True":
+        return cardioname
+    else:
+        return False
     pass    
 def new_quote():
     lenght = db.session.execute(text("SELECT quotes FROM quotes;")).fetchall()

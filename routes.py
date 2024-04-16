@@ -55,6 +55,14 @@ def addexercise():
         return render_template("index.html", added=True)
     else:
         return render_template("form/gym.html", exercises=value)
+@app.route("/addcardio",methods=["POST"])
+def addcardio():
+    value = users.add_cardio()
+    if value == False :
+        return render_template("index.html", added=True)
+    else:
+        return render_template("form/cardio.html", exercises=value)
+
 
 @app.route("/profile/<int:id>")
 def profile(id):

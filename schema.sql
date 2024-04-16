@@ -8,7 +8,7 @@ CREATE TABLE cardio (
 id SERIAL PRIMARY KEY, 
 cardioname TEXT,
 lenght INTEGER,
-time TIME 
+times TIME 
 );
 
 --CREATE TABLE popuplarity ( "needs work"
@@ -20,11 +20,13 @@ sets INTEGER,
 weight INTEGER,
 exercisename TEXT 
 );  
+
 Create TABLE visits (
 id SERIAL PRIMARY KEY,
 date TEXT ,
 user_id INTEGER REFERENCES users(id),
-exercise_id INTEGER REFERENCES exercise(id) 
+exercise_id INTEGER REFERENCES exercise(id),
+cardio_id INTEGER REFERENCES cardio(id) 
 );
 
 CREATE TABLE quotes (
