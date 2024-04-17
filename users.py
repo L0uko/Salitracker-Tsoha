@@ -48,10 +48,17 @@ def show_exercises(user_id):
     FROM exercise e, visits v 
     WHERE v.exercise_id=e.id and v.user_id=:user_id
     ORDER BY v.date
-    ;""")
-    #add cardio too TODO
+    """)
     all_exercises = db.session.execute(sql,{"user_id":user_id}).fetchall()
-    return all_exercises
+    
+    sql= text("""
+    SELECT c.cardioname, c.lenght, c.times, v.date 
+    FROM cardio c, visits v
+    WHERE v.cardio_id = c.id and v.user_id=:user_id
+    ORDER BY v.date
+              """)
+    all_cardio = db.session.execute(sql,{"user_id":user_id}).fetchall()
+    return all_exercises, all_cardio
 def add_gym():
     exercisename = request.form["exercisename"]
     sets   = request.form["sets"]

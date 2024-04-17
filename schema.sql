@@ -8,7 +8,7 @@ CREATE TABLE cardio (
 id SERIAL PRIMARY KEY, 
 cardioname TEXT,
 lenght INTEGER,
-times TIME 
+times INTEGER 
 );
 
 --CREATE TABLE popuplarity ( "needs work"

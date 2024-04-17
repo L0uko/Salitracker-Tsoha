@@ -68,8 +68,9 @@ def addcardio():
 def profile():
     #first we get the visit id.
     id = session["user_id"]
-    allexercises = users.show_exercises(id)
-    return render_template("profile.html", allexercises=allexercises)
+    tuple = users.show_exercises(id)
+    allexercises , allcardio = tuple
+    return render_template("profile.html",allexercises=allexercises, allcardio=allcardio)
 
 @app.route("/add_quote")
 def add_quote():

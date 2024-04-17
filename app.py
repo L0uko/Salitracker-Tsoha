@@ -7,9 +7,7 @@ from flask import Flask
 #docker exec -i inventory-dev-postgres psql -U db-username db-name < schema.sql
 
 '''TODOLIST:
-TODO more tables (dont know how)
-(maybe 3rd option? sport?)
-TODO Templates?(new tables?)
+
 '''
 app = Flask(__name__)
 import routes

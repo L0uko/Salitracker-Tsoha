@@ -16,3 +16,9 @@ Something went wrong.
 <b>Weight: (Kg)</b> {{ex.weight}} <b>Total weight lifted: (Kg)</b> 
 {{ex.sets*ex.weight}} <b>Date:</b> {{ex.date}} </p>
 {%endfor%}
+
+{%for car in allcardio%}
+<p><b>Name:</b> {{car.cardioname}} <b>Length: (Km) </b> {{car.lenght}}
+<b>Time: (min)</b> {{car.times}} <b>Speed: (Km/h)</b> 
+{{car.lenght/(car.times/60)}} <b>Date:</b> {{car.date}} </p>
+{%endfor%}
