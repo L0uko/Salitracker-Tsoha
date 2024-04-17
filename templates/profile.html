@@ -1,6 +1,15 @@
 Olet kirjautunut nimellä {{session.username}}
-<br><br>
-<a href="/">Go back</a>
+<p><a href="/">Go back</a></p>
+
+<p><a href="/add_quote">Add quote:</a></p>
+
+{%if success%}
+Quote added.
+{%endif%}
+
+{%if fail%}
+Something went wrong.
+{%endif%}
 
 {%for ex in allexercises%}
 <p><b>Name:</b> {{ex.exercisename}} <b>Sets:</b> {{ex.sets}}

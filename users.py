@@ -97,3 +97,16 @@ def new_quote():
     rand = randint(1,lenght)
     quote= db.session.execute(text("SELECT quotes FROM quotes WHERE id=:rand;"),{"rand":rand}).fetchone()
     return quote[0]
+def add_quote():
+    quote = request.form["quote"]
+    if len(quote) >0 and len(quote) < 150:
+        user = session["username"]
+        quote = f'"{quote} -{user}"'
+        sql = text("INSERT INTO quotes (quotes) VALUES (:quotes)")
+        result = db.session.execute(sql, {"quotes":quote})
+        db.session.commit()
+        return True
+    else:
+        return False
+    
+#psql -d db-name -U db-username postgres

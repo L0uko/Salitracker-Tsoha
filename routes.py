@@ -64,8 +64,21 @@ def addcardio():
         return render_template("form/cardio.html", exercises=value)
 
 
-@app.route("/profile/<int:id>")
-def profile(id):
+@app.route("/profile")
+def profile():
     #first we get the visit id.
+    id = session["user_id"]
     allexercises = users.show_exercises(id)
     return render_template("profile.html", allexercises=allexercises)
+
+@app.route("/add_quote")
+def add_quote():
+    return render_template("add_quote.html")
+
+@app.route("/insert_quote", methods = ["POST"])
+def insert_quote():
+    boolean = users.add_quote()
+    if boolean is True:
+        return render_template("profile.html", success = True)
+    else:
+        return render_template("profile.html", fail =True)
