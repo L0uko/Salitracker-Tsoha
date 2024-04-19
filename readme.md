@@ -3,22 +3,18 @@
 The function of this database is to track the users gym visits and show the progress that the user has made.
 
 # Features
-The final version will have  the following features:
+The webpage has the following features:
   - Logging in
   - Input the made exercises
-  - The weight of the exercises
+  - input the done cardio workout
+  - The weight and sets of the exercises / distance and time in cardios 
   - The date
-  - Graph of previous exercises
-  - Ability to make custom exercises
-  - Total repetitions per workout
-# Working features
-- Logging in
-	- Visual confirmation TODO
-- Input the made exercises
-	- Visual confirmation is still TODO
- - The weight of the exercises
- - Amount of sets
- - The date
+  - List of previous exercises
+  - Total repetitions per workout / speed
+  - A ready list of motivational quotes that rotate on the main page
+  - ability to add your own quotes to the list
+
+
 
 # How to run and debug
 Below is a brief tutorial on how to get the database and webpage running on your own (linux) computer: (If you are on Windows, you can run these commands through Git Bash etc.)
