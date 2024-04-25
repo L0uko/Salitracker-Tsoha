@@ -123,9 +123,9 @@ def find_max(id):
     names = db.session.execute(sql,{"user_id":id}).fetchall()
     max_list = []
     for name in names:
-        print("TESTI")
-        print(name)
         name= name[0]
+        print(name)
+        print("TESTI")
         sql = text("""--sql
             SELECT MAX(e.weight) 
             FROM exercise e, visits v, users u

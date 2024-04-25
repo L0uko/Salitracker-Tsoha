@@ -23,4 +23,8 @@ Something went wrong.
 {{car.lenght/(car.times/60)}} <b>Date:</b> {{car.date}} </p>
 {%endfor%}
 
-{{max_list}}
+
+
+{%for max in max_list%}
+<p><b>Name:</b> {{max[0]}} <b>Maximum weight lifted:</b> {{max[1]}}</p>
+{%endfor%}
