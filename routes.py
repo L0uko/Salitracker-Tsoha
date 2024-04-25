@@ -68,9 +68,10 @@ def addcardio():
 def profile():
     #first we get the visit id.
     id = session["user_id"]
+    max_list = users.find_max(id)
     tuple = users.show_exercises(id)
     allexercises , allcardio = tuple
-    return render_template("profile.html",allexercises=allexercises, allcardio=allcardio)
+    return render_template("profile.html", allexercises=allexercises, allcardio=allcardio, max_list=max_list)
 
 @app.route("/add_quote")
 def add_quote():

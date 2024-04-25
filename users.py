@@ -115,5 +115,25 @@ def add_quote():
         return True
     else:
         return False
-    
+def find_max(id):
+    sql = text("""--sql
+    SELECT DISTINCT e.exercisename 
+    FROM exercise e, visits v, users u
+    WHERE v.user_id = :user_id and e.id=v.exercise_id""")
+    names = db.session.execute(sql,{"user_id":id}).fetchall()
+    max_list = []
+    for name in names:
+        print("TESTI")
+        print(name)
+        name= name[0]
+        sql = text("""--sql
+            SELECT MAX(e.weight) 
+            FROM exercise e, visits v, users u
+            WHERE v.user_id=:id and e.id=v.exercise_id and e.exercisename=:name
+            """)
+        max = db.session.execute(sql,{"id":id, "name":name}).fetchone()
+        max = max[0]
+        max = (name, max)
+        max_list.append(max)
+    return max_list
 #psql -d db-name -U db-username postgres
