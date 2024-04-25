@@ -3,9 +3,11 @@
 <form action="/form/gym">
     <input type = "submit" value="Gym">
     </form>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 
 <form action="/form/cardio">
     <input type = "submit" value="Cardio">
     </form>
 
     <a href="/">Go back</a>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">

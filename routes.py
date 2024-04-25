@@ -2,6 +2,7 @@ from flask import redirect, render_template, request, session
 from app import app
 from db import db
 import users
+import secrets 
 
 
 @app.route("/")
@@ -12,6 +13,7 @@ def index():
 @app.route("/login",methods=["POST"])
 def login():
     value = users.login()
+    session["csrf_token"] = secrets.token_hex(16)
     if value == "not_user":
         return render_template("index.html", error = "Incorrect username")
     if value == True:

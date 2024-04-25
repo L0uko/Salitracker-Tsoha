@@ -5,6 +5,7 @@
 <br>
 <form action="/choice">
 <input type = "submit" value="Add exercises">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
@@ -20,6 +21,7 @@
 <p>Password:<br>
 <input type="password" name="password"></p>
 <input type="submit" value="Log in">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 <form action="/signin" method="POST">
     <p>Username:<br>
@@ -27,6 +29,7 @@
     <p>Password:<br>
     <input type="password" name="password"></p>
     <input type="submit" value="Sign up">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
 
 {% endif %}
