@@ -11,6 +11,7 @@ The webpage has the following features:
   - The date
   - List of previous exercises
   - Total repetitions per workout / speed
+  - The maximum weight that the user has lifted for every exercise
   - A ready list of motivational quotes that rotate on the main page
   - ability to add your own quotes to the list
 
